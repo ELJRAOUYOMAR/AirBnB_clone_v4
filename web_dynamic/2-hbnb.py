@@ -6,7 +6,7 @@ from flask import Flask, render_template, url_for
 from models import storage
 import uuid;
 
-'''flask setup'''
+# flask setup
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 port = 5000
@@ -18,12 +18,12 @@ host = '0.0.0.0'
 def teardown_db(exception):
     """
     after each request, this method calls .close() (i.e. .remove()) on
-    the current SQLAlchemy Session
+    the current SQLAlchemy Session.
     """
     storage.close()
 
 
-@app.route('/0-hbnb')
+@app.route('/2-hbnb')
 def hbnb_filters(the_id=None):
     """
     handles request to custom template with states, cities & amentities.
@@ -34,7 +34,7 @@ def hbnb_filters(the_id=None):
     places = storage.all('Place').values()
     users = dict([user.id, "{} {}".format(user.first_name, user.last_name)]
                  for user in storage.all('User').values())
-    return render_template('0-hbnb.html',
+    return render_template('2-hbnb.html',
                            cache_id=uuid.uuid4(),
                            states=states,
                            amens=amens,
